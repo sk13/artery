@@ -3,7 +3,8 @@
 	url = https://github.com/riebl/artery_scenario_mt-its2017.git
 [submodule "extern/inet"]
 	path = extern/inet
-	url = https://github.com/riebl/inet.git
+	url = https://github.com/inet-framework/inet.git
+	branch = v3.x
 [submodule "extern/pybind11"]
 	path = extern/pybind11
 	url = https://github.com/pybind/pybind11.git

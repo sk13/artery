@@ -54,13 +54,13 @@ function(add_opp_target)
         file(RELATIVE_PATH msg_prefix ${args_SOURCE_DIR} ${msg_dir})
         set(msg_out_dir ${msg_gen_dir}/${msg_prefix})
         file(MAKE_DIRECTORY ${msg_out_dir})
-        add_custom_command(OUTPUT "${msg_out_dir}/${msg_name}_m.cc" "${msg_out_dir}/${msg_name}_m.h"
-            COMMAND ${OMNETPP_MSGC} ARGS -s _m.cc ${msg_file}
+        add_custom_command(OUTPUT "${msg_dir}/${msg_name}_m.cc" "${msg_dir}/${msg_name}_m.h"
+            COMMAND ${OMNETPP_MSGC} ARGS -s _m.cc -I${Veins_DIR}/src ${msg_file}
             DEPENDS ${msg_file} ${OMNETPP_MSGC}
             COMMENT "Generating message ${msg_prefix}/${msg_name} of ${args_TARGET}"
             WORKING_DIRECTORY ${msg_out_dir} VERBATIM)
 
-        list(APPEND cpp_files "${msg_out_dir}/${msg_name}_m.cc" "${msg_out_dir}/${msg_name}_m.h")
+        list(APPEND cpp_files "${msg_dir}/${msg_name}_m.cc" "${msg_dir}/${msg_name}_m.h")
     endforeach()
 
     # set up target for OMNeT++ project

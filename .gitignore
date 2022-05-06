@@ -7,3 +7,7 @@ src/artery/messages/*_m.h
 www/
 .vagrant/
 build/
+/scenarios/highway-police/PoliceClearLane_m.cc
+/scenarios/highway-police/PoliceClearLane_m.h
+/src/artery/utility/AsioData_m.cc
+/src/artery/utility/AsioData_m.h

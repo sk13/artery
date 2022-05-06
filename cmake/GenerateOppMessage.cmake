@@ -16,8 +16,8 @@ function(generate_opp_message msg_input)
         file(RELATIVE_PATH msg_prefix ${PROJECT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/${msg_dir})
     endif()
     set(msg_output_dir "${msg_output_root}/${msg_prefix}")
-    set(msg_output_source "${msg_output_dir}/${msg_name}_m.cc")
-    set(msg_output_header "${msg_output_dir}/${msg_name}_m.h")
+    set(msg_output_source "${CMAKE_CURRENT_SOURCE_DIR}/${msg_dir}/${msg_name}_m.cc")
+    set(msg_output_header "${CMAKE_CURRENT_SOURCE_DIR}/${msg_dir}/${msg_name}_m.h")
 
     file(MAKE_DIRECTORY ${msg_output_dir})
     add_custom_command(OUTPUT "${msg_output_source}" "${msg_output_header}"

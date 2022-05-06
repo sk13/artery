@@ -1,5 +1,5 @@
 #include "ClearLaneService.h"
-#include "police_msgs/PoliceClearLane_m.h"
+#include "PoliceClearLane_m.h"
 #include "artery/traci/VehicleController.h"
 
 using namespace omnetpp;

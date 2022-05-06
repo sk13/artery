@@ -1,5 +1,5 @@
 #include "PoliceService.h"
-#include "police_msgs/PoliceClearLane_m.h"
+#include "PoliceClearLane_m.h"
 #include "artery/traci/VehicleController.h"
 #include <vanetza/btp/data_request.hpp>
 #include <vanetza/dcc/profile.hpp>

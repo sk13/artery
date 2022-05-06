@@ -6,7 +6,7 @@
 
 #ifndef ARTERY_GEMV2_MATH_H_RMEYTQN7
 #define ARTERY_GEMV2_MATH_H_RMEYTQN7
-
+#include <sstream>
 #include <inet/common/Units.h>
 #include <boost/units/pow.hpp>
 #include <boost/units/quantity.hpp>

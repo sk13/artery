@@ -18,6 +18,7 @@
 [submodule "extern/veins"]
 	path = extern/veins
 	url = https://github.com/sommer/veins.git
+	branch = master
 [submodule "extern/sim0mqpp"]
 	path = extern/sim0mqpp
 	url = https://github.com/riebl/sim0mqpp.git

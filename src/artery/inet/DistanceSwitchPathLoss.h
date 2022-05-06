@@ -6,7 +6,7 @@
 
 #ifndef ARTERY_DISTANCESWITCHPATHLOSS_H_G8PI60NO
 #define ARTERY_DISTANCESWITCHPATHLOSS_H_G8PI60NO
-
+#include <sstream>
 #include <inet/common/Units.h>
 #include <inet/physicallayer/contract/packetlevel/IPathLoss.h>
 

@@ -30,6 +30,7 @@
 #include <vanetza/units/velocity.hpp>
 #include <vanetza/units/angular_velocity.hpp>
 #include <vanetza/units/curvature.hpp>
+#include <vanetza/units/length.hpp>
 #include <cstdint>
 #include <map>
 
@@ -60,6 +61,11 @@ class VehicleDataProvider
 		vanetza::units::Curvature curvature() const { return mCurvature; } // 1/m radius, left turn positive
 		double curvature_confidence() const { return mConfidence; } // percentage value
 
+
+		void setDimension(vanetza::units::Length  length,vanetza::units::Length  width); //sets dimension of vehicle
+		vanetza::units::Length length() const {return mLength;}//length of vehicle
+		vanetza::units::Length width()const {return mWidth;}//width of vehicle
+
 		void setStationType(StationType);
 		StationType getStationType() const;
 
@@ -83,6 +89,10 @@ class VehicleDataProvider
 		boost::circular_buffer<AngularAcceleration> mCurvatureConfidenceOutput;
 		vanetza::units::AngularVelocity mCurvatureConfidenceInput;
 		static const std::map<AngularAcceleration, double> mConfidenceTable;
+
+		vanetza::units::Length mLength;
+		vanetza::units::Length mWidth;
+
 };
 
 } // namespace artery

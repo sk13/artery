@@ -16,10 +16,11 @@
 #ifndef ARTERY_ASIOSCHEDULER_H_
 #define ARTERY_ASIOSCHEDULER_H_
 
-#include <omnetpp/cmodule.h>
-#include <omnetpp/cscheduler.h>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/steady_timer.hpp>
+
+#include <omnetpp/cmodule.h>
+#include <omnetpp/cscheduler.h>
 #include <chrono>
 #include <memory>
 
@@ -32,7 +33,7 @@ class AsioScheduler : public omnetpp::cScheduler
 {
 	public:
 		AsioScheduler();
-		virtual std::string info() const override;
+		virtual std::string str() const override;
 		std::unique_ptr<AsioTask> createTask(omnetpp::cModule&);
 		void cancelTask(AsioTask*);
 		void processTask(AsioTask*);

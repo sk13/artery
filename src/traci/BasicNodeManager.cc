@@ -264,7 +264,17 @@ void BasicNodeManager::updatePerson(const std::string& id, PersonSink* sink)
 
 cModule* BasicNodeManager::createModule(const std::string&, cModuleType* type)
 {
-    cModule* module = type->create("node", getSystemModule(), m_nodeIndex, m_nodeIndex);
+    cModule* systemModule=getSystemModule();
+    if(!systemModule->hasSubmoduleVector("node"))
+    {
+     systemModule->addSubmoduleVector("node",m_nodeIndex+1);
+    }
+    else
+    {
+        systemModule->setSubmoduleVectorSize("node",m_nodeIndex+1);
+    }
+
+    cModule* module = type->create("node", systemModule, m_nodeIndex/*, m_nodeIndex*/);
     ++m_nodeIndex;
     return module;
 }

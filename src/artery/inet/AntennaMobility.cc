@@ -9,7 +9,7 @@ Define_Module(AntennaMobility)
 void AntennaMobility::initialize(int stage)
 {
     omnetpp::cModule* module = getModuleByPath(par("mobilityModule"));
-    mParentMobility = check_and_cast<inet::IMobility*>(module);
+    mParentMobility =  omnetpp::check_and_cast<inet::IMobility*>(module);
 
     mOffsetCoord.x = par("offsetX");
     mOffsetCoord.y = par("offsetY");

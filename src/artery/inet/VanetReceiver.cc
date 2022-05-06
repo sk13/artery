@@ -49,8 +49,8 @@ const phy::ReceptionIndication* VanetReceiver::computeReceptionIndication(const 
 {
     using namespace phy;
     auto basicIndication = const_cast<ReceptionIndication*>(Ieee80211ScalarReceiver::computeReceptionIndication(snir));
-    auto wlanIndication = check_and_cast<Ieee80211ReceptionIndication*>(basicIndication);
-    auto reception = check_and_cast<const ScalarReception*>(snir->getReception());
+    auto wlanIndication = omnetpp::check_and_cast<Ieee80211ReceptionIndication*>(basicIndication);
+    auto reception = omnetpp::check_and_cast<const ScalarReception*>(snir->getReception());
     wlanIndication->setMinRSSI(reception->getPower());
     return wlanIndication;
 }

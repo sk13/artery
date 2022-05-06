@@ -1,9 +1,9 @@
 #ifndef ARTERY_ASIOTASK_H_
 #define ARTERY_ASIOTASK_H_
 
-#include "artery/utility/AsioData_m.h"
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include "artery/utility/AsioData_m.h"
 #include <omnetpp/cmodule.h>
 #include <memory>
 

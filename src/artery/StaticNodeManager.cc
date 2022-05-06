@@ -14,11 +14,11 @@ namespace artery
 Define_Module(StaticNodeManager)
 
 // emitted signals
-const simsignal_t StaticNodeManager::addRoadSideUnitSignal = cComponent::registerSignal("addRoadSideUnit");
+const omnetpp::simsignal_t StaticNodeManager::addRoadSideUnitSignal = cComponent::registerSignal("addRoadSideUnit");
 
 namespace {
     // subscribed signals
-    const simsignal_t initSignal = cComponent::registerSignal("traci.init");
+    const omnetpp::simsignal_t initSignal = omnetpp::cComponent::registerSignal("traci.init");
 } // namespace
 
 
@@ -55,7 +55,7 @@ void StaticNodeManager::handleMessage(omnetpp::cMessage* msg)
 {
     if (msg == mInsertionEvent) {
         for (auto it = mInsertionQueue.begin(); it != mInsertionQueue.end();) {
-            if (it->first <= simTime()) {
+            if (it->first <= omnetpp::simTime()) {
                 addRoadSideUnit(it->second);
                 it = mInsertionQueue.erase(it);
             } else {
@@ -85,26 +85,26 @@ void StaticNodeManager::scheduleInsertionEvent()
 
 void StaticNodeManager::loadRoadSideUnits()
 {
-    cXMLElement* config = par("nodes").xmlValue();
+    omnetpp::cXMLElement* config = par("nodes").xmlValue();
 
-    for (cXMLElement* rsu : config->getChildrenByTagName("rsu")) {
+    for (omnetpp::cXMLElement* rsu : config->getChildrenByTagName("rsu")) {
         const char* id = rsu->getAttribute("id");
         if (!id) {
-            EV_WARN << "rsu has no id specified, skip" << endl;
+            EV_WARN << "rsu has no id specified, skip" << omnetpp::endl;
         } else if (mRsuMap.find(id) != mRsuMap.end()) {
-            EV_WARN << "rsu with id " << id << " already exists, skip" << endl;
+            EV_WARN << "rsu with id " << id << " already exists, skip" << omnetpp::endl;
         }
 
         RSU rsuStruct;
         rsuStruct.position.x = std::stod(rsu->getAttribute("positionX")) * boost::units::si::meter;
         rsuStruct.position.y = std::stod(rsu->getAttribute("positionY")) * boost::units::si::meter;
-        for (cXMLElement* antenna : rsu->getChildrenByTagName("antenna")) {
+        for (omnetpp::cXMLElement* antenna : rsu->getChildrenByTagName("antenna")) {
             double direction = std::stod(antenna->getAttribute("direction"));
             rsuStruct.antennaDirections.push_back(direction);
         }
 
         mRsuMap.emplace(id, std::move(rsuStruct));
-        mInsertionQueue.emplace(simTime() + par("insertionDelay"), id);
+        mInsertionQueue.emplace(omnetpp::simTime() + par("insertionDelay"), id);
     }
 
     scheduleInsertionEvent();
@@ -168,7 +168,7 @@ void StaticNodeManager::addRoadSideUnit(const std::string& id)
         }
     }
 
-    rsuModule->scheduleStart(simTime());
+    rsuModule->scheduleStart(omnetpp::simTime());
     rsuModule->callInitialize();
     emit(addRoadSideUnitSignal, id.c_str(), rsuModule);
 
@@ -178,17 +178,17 @@ void StaticNodeManager::addRoadSideUnit(const std::string& id)
         for (omnetpp::cIListener* listener : listeners) {
             auto mod = dynamic_cast<omnetpp::cModule*>(listener);
             if (mod && rsuModule->containsModule(mod)) {
-                listener->receiveSignal(mInitSource, initSignal, simTime(), nullptr);
+                listener->receiveSignal(mInitSource, initSignal, omnetpp::simTime(), nullptr);
             }
         }
     }
 }
 
-cModule* StaticNodeManager::createRoadSideUnitModule(const std::string& id)
+omnetpp::cModule* StaticNodeManager::createRoadSideUnitModule(const std::string& id)
 {
-    cModuleType* type = cModuleType::get(par("rsuType"));
+    omnetpp::cModuleType* type = omnetpp::cModuleType::get(par("rsuType"));
     std::string name = mRsuPrefix + id;
-    cModule* module = type->create(name.c_str(), getSystemModule());
+    omnetpp::cModule* module = type->create(name.c_str(), getSystemModule());
     return module;
 }
 

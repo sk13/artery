@@ -43,7 +43,7 @@ const Middleware& BaseSensor::getMiddleware() const
     return *mMiddleware;
 }
 
-cModule* BaseSensor::findHost()
+omnetpp::cModule* BaseSensor::findHost()
 {
     return inet::getContainingNode(this);
 }
@@ -53,7 +53,7 @@ void BaseSensor::initialize()
     cModule* module = findHost()->getSubmodule("middleware");
     Middleware* middleware = dynamic_cast<Middleware*>(module);
     if (middleware == nullptr) {
-        throw cRuntimeError("Middleware not found");
+        throw omnetpp::cRuntimeError("Middleware not found");
     }
 
     mMiddleware = middleware;

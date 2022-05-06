@@ -1,6 +1,7 @@
+#include <boost/asio/write.hpp>
+
 #include "AsioScheduler.h"
 #include "AsioTask.h"
-#include <boost/asio/write.hpp>
 
 namespace artery
 {
@@ -13,6 +14,7 @@ AsioTask::AsioTask(AsioScheduler& scheduler, boost::asio::ip::tcp::socket socket
 AsioTask::~AsioTask()
 {
 	m_scheduler.cancelTask(this);
+
 }
 
 void AsioTask::write(boost::asio::const_buffer buf)

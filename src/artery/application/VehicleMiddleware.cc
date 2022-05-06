@@ -32,6 +32,8 @@ void VehicleMiddleware::initialize(int stage)
         getFacilities().register_const(&mVehicleDataProvider);
         mVehicleDataProvider.update(getKinematics(*mVehicleController));
 
+        mVehicleDataProvider.setDimension(mVehicleController->getLength(),mVehicleController->getWidth());
+
         Identity identity;
         identity.traci = mVehicleController->getVehicleId();
         identity.application = Identity::randomStationId(getRNG(0));

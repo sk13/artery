@@ -8,10 +8,10 @@ namespace artery
 
 Register_Class(GbcMockMessage)
 
-class GbcLatencyResultFilter : public cObjectResultFilter
+class GbcLatencyResultFilter : public omnetpp::cObjectResultFilter
 {
 protected:
-    void receiveSignal(cResultFilter* prev, simtime_t_cref t, cObject* object, cObject* details) override
+    void receiveSignal(cResultFilter* prev, omnetpp::simtime_t_cref t, omnetpp::cObject* object, omnetpp::cObject* details) override
     {
         if (auto gbc = dynamic_cast<GbcMockMessage*>(object)) {
             const auto latency = t - gbc->getGenerationTimestamp();
@@ -23,10 +23,10 @@ protected:
 Register_ResultFilter("gbcLatency", GbcLatencyResultFilter)
 
 
-class GbcRangeResultFilter : public cObjectResultFilter
+class GbcRangeResultFilter : public omnetpp::cObjectResultFilter
 {
 protected:
-    void receiveSignal(cResultFilter* prev, simtime_t_cref t, cObject* object, cObject* details) override
+    void receiveSignal(cResultFilter* prev, omnetpp::simtime_t_cref t, omnetpp::cObject* object, omnetpp::cObject* details) override
     {
         if (auto gbc = dynamic_cast<GbcMockMessage*>(object)) {
             auto rx = omnetpp::check_and_cast<inet::Coord*>(details);
@@ -40,14 +40,14 @@ protected:
 Register_ResultFilter("gbcRange", GbcRangeResultFilter)
 
 
-class GbcUniqueReceptionResultFilter : public cObjectResultFilter
+class GbcUniqueReceptionResultFilter : public omnetpp::cObjectResultFilter
 {
 protected:
-    using Identifier = std::tuple<int, SimTime>;
+    using Identifier = std::tuple<int, omnetpp::SimTime>;
 
-    void receiveSignal(cResultFilter* prev, simtime_t_cref t, cObject* object, cObject* details) override
+    void receiveSignal(omnetpp::cResultFilter* prev, omnetpp::simtime_t_cref t, omnetpp::cObject* object, omnetpp::cObject* details) override
     {
-        auto msg = check_and_cast<GbcMockMessage*>(object);
+        auto msg = omnetpp::check_and_cast<GbcMockMessage*>(object);
         auto insert = mIdentifiers.emplace(msg->getSourceStation(), msg->getGenerationTimestamp());
         if (insert.second) {
             fire(this, t, msg, details);

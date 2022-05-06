@@ -10,7 +10,7 @@ module Manager
         subscriptions.coreModule = "^.core";
 
         bool ignorePersons = default(true);
-        *.ignorePersons = ignorePersons;
+        *.ignorePersons = this.ignorePersons;
 
     submodules:
         core : Core {

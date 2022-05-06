@@ -193,4 +193,10 @@ void VehicleDataProvider::setStationId(uint32_t id)
 	mStationId = id;
 }
 
+void VehicleDataProvider::setDimension(vanetza::units::Length length,vanetza::units::Length width)
+{
+    mLength=length;
+    mWidth=width;
+}
+
 } // namespace artery

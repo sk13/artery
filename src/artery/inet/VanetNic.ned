@@ -26,7 +26,7 @@ module VanetNic extends Ieee80211Nic
         mac.hcf.rateSelection.multicastFrameBitrate = bitrate;
 
         // EDCA settings for activated OCB mode (see table 8-106 in IEEE 802.11-2012)
-        mac.hcf.edcaTxopProcedures[*].txopLimit = 0;
+        mac.hcf.edcaTxopProcedures[*].txopLimit =default(0 s);
 
         // AC_BK
         mac.hcf.edca.edcaf[0].aifsn = 9;

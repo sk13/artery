@@ -23,7 +23,7 @@ void VanetHcf::setFrameMode(Ieee80211Frame* frame, const IIeee80211Mode* mode) c
         // only use supplied mode (by rate selection module) if no mode has been requested explicitly
         if (!ctrl->getMode()) {
             ASSERT(mode != nullptr);
-            ctrl->setMode(mode);
+            ctrl->setMode((IIeee80211Mode*)mode);
         }
     } else {
         Hcf::setFrameMode(frame, mode);

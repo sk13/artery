@@ -19,6 +19,7 @@
 #include <vanetza/dcc/transmit_rate_control.hpp>
 #include <vanetza/facilities/cam_functions.hpp>
 #include <chrono>
+#include <algorithm>
 
 namespace artery
 {
@@ -256,10 +257,18 @@ vanetza::asn1::Cam createCooperativeAwarenessMessage(const VehicleDataProvider& 
 	if (bvc.yawRate.yawRateValue < -32766 || bvc.yawRate.yawRateValue > 32766) {
 		bvc.yawRate.yawRateValue = YawRateValue_unavailable;
 	}
-	bvc.vehicleLength.vehicleLengthValue = VehicleLengthValue_unavailable;
+	//bvc.vehicleLength.vehicleLengthValue = VehicleLengthValue_unavailable;
 	bvc.vehicleLength.vehicleLengthConfidenceIndication =
 			VehicleLengthConfidenceIndication_noTrailerPresent;
-	bvc.vehicleWidth = VehicleWidth_unavailable;
+	//bvc.vehicleWidth = VehicleWidth_unavailable;
+
+
+	double length=vdp.length().value();
+    double width=vdp.width().value();
+
+
+	bvc.vehicleLength.vehicleLengthValue=std::min((int)ceil(length*10.0),1022); //the length in 0.1m (max: 1022)
+	bvc.vehicleWidth=std::min((int)ceil(width*10.0),61); // the width in 0.1m (max: 61)
 
 	std::string error;
 	if (!message.validate(error)) {

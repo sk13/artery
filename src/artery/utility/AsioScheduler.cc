@@ -12,14 +12,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/read.hpp>
+#include <boost/asio/steady_timer.hpp>
 
 #include "AsioScheduler.h"
 #include "AsioTask.h"
 #include <chrono>
 #include <functional>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/read.hpp>
-#include <boost/asio/steady_timer.hpp>
 
 namespace artery
 {
@@ -55,7 +56,7 @@ AsioScheduler::AsioScheduler() : m_work(m_service), m_timer(m_service), m_state(
 {
 }
 
-std::string AsioScheduler::info() const
+std::string AsioScheduler::str() const
 {
 	return std::string("Asio Scheduler (") + SimTime(1, steady_clock_resolution()).str() + " resolution)";
 }
@@ -169,9 +170,10 @@ void AsioScheduler::cancelTask(AsioTask* task)
 void AsioScheduler::processTask(AsioTask* task)
 {
 	using namespace std::placeholders;
-	auto& buffer = task->m_message->getBuffer();
+	AsioBuffer& buffer = task->m_message->getBufferForUpdate();
 	auto handler = std::bind(&AsioScheduler::handleTask, this, task, _1, _2);
-	task->m_socket.async_read_some(boost::asio::buffer(buffer.data(), buffer.size()), handler);
+	auto asioBuffer=boost::asio::buffer(buffer.data(), buffer.size());
+	task->m_socket.async_read_some(asioBuffer, handler);
 }
 
 void AsioScheduler::handleTask(AsioTask* task, const boost::system::error_code& ec, std::size_t bytes)
@@ -192,3 +194,5 @@ void AsioScheduler::handleTask(AsioTask* task, const boost::system::error_code& 
 }
 
 } // namespace artery
+
+

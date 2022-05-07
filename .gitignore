@@ -11,3 +11,4 @@ build/
 /scenarios/highway-police/PoliceClearLane_m.h
 /src/artery/utility/AsioData_m.cc
 /src/artery/utility/AsioData_m.h
+/build-debug

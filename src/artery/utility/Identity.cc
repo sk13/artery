@@ -42,7 +42,7 @@ bool Identity::update(const Identity& update, long changes)
 
 uint32_t Identity::randomStationId(omnetpp::cRNG* rng)
 {
-    return intuniform(rng, 0, std::numeric_limits<uint32_t>::max());
+    return intuniform(rng, 0, std::numeric_limits<int32_t>::max());
 }
 
 } // namespace artery

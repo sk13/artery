@@ -20,15 +20,15 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #pragma once
-#include <config.h>
+#include "../../config.h"
 #include <vector>
 #include <limits>
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <foreign/tcpip/socket.h>
-#include <libsumo/TraCIConstants.h>
-#include <libsumo/TraCIDefs.h>
+#include "../../foreign/tcpip/socket.h"
+#include "../../libsumo/TraCIConstants.h"
+#include "../../libsumo/TraCIDefs.h"
 
 // ===========================================================================
 // global definitions

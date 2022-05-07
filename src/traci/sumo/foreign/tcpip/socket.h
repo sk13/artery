@@ -7,7 +7,7 @@
  ************************************************************************/
 
 #pragma once
-#include <config.h>
+#include "../../config.h"
 
 #ifdef SHAWN
      #include <shawn_config.h>
